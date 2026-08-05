@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ESLOT — Slot Game Developer · 57 games live on Stake</title>
+<meta name="description" content="Full-cycle slot game development for Stake Engine. 57 games live across 8 studios on Stake.com, Stake.us, Stake.mx and Stake EU. Order yours on Discord: egorfdrv">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E11;
+    --panel:#12171D;
+    --panel-2:#171E26;
+    --line:#222B35;
+    --green:#00E701;
+    --green-dim:rgba(0,231,1,.12);
+    --gold:#FFC233;
+    --text:#E7EDF2;
+    --dim:#8A97A5;
+    --display:'Unbounded',system-ui,sans-serif;
+    --body:'Manrope',system-ui,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--text);font-family:var(--body);
+    -webkit-font-smoothing:antialiased;overflow-x:clip;
+  }
+  ::selection{background:var(--green);color:#04120B}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(11,14,17,.82);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-family:var(--display);font-weight:900;font-size:18px;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+  .logo .e{
+    width:34px;height:34px;border-radius:9px;display:grid;place-items:center;
+    background:var(--green);color:#04120B;font-size:19px;
+    box-shadow:0 0 22px rgba(0,231,1,.45);
+  }
+  .logo small{font-family:var(--body);font-weight:600;font-size:11px;color:var(--dim);letter-spacing:.14em;text-transform:uppercase;display:block}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;cursor:pointer;border:0;
+    font-family:var(--body);font-weight:800;font-size:14px;border-radius:10px;
+    padding:11px 18px;transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+  .btn-green{background:var(--green);color:#04120B;box-shadow:0 0 24px rgba(0,231,1,.35)}
+  .btn-green:hover{transform:translateY(-1px);box-shadow:0 0 36px rgba(0,231,1,.55)}
+  .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--green);color:var(--green)}
+
+  /* ---------- hero ---------- */
+  header{position:relative;padding:96px 0 72px;text-align:center}
+  .hero-glow{
+    position:absolute;inset:auto 0 auto 50%;top:-160px;width:900px;height:520px;
+    transform:translateX(-50%);pointer-events:none;
+    background:radial-gradient(closest-side,rgba(0,231,1,.14),transparent 70%);
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.18em;
+    color:var(--green);text-transform:uppercase;
+    border:1px solid rgba(0,231,1,.3);background:var(--green-dim);
+    padding:7px 14px;border-radius:999px;margin-bottom:28px;
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.6s infinite}
+  @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,231,1,.5)}50%{opacity:.6;box-shadow:0 0 0 6px rgba(0,231,1,0)}}
+  h1{
+    font-family:var(--display);font-weight:900;line-height:1.02;
+    font-size:clamp(38px,7vw,84px);letter-spacing:-.01em;
+  }
+  h1 .stroke{
+    color:transparent;-webkit-text-stroke:2px var(--green);
+    text-shadow:0 0 40px rgba(0,231,1,.25);
+  }
+  .sub{max-width:660px;margin:26px auto 0;color:var(--dim);font-size:17px;font-weight:500;line-height:1.65}
+  .sub b{color:var(--text)}
+  .hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+  .ticker{
+    margin-top:64px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    display:grid;grid-template-columns:repeat(4,1fr);
+  }
+  .tick{padding:22px 10px;border-right:1px solid var(--line)}
+  .tick:last-child{border-right:0}
+  .tick .n{font-family:var(--mono);font-weight:800;font-size:clamp(20px,3vw,30px);color:var(--text)}
+  .tick .n em{color:var(--green);font-style:normal}
+  .tick .n .gold{color:var(--gold)}
+  .tick .l{margin-top:6px;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+
+  /* ---------- sections ---------- */
+  section{padding:84px 0}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+  h2{font-family:var(--display);font-weight:800;font-size:clamp(24px,3.4vw,36px)}
+  h2 .live-badge{
+    vertical-align:middle;margin-left:14px;display:inline-flex;align-items:center;gap:7px;
+    font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.16em;color:var(--green);
+    border:1px solid rgba(0,231,1,.3);border-radius:999px;padding:5px 12px;background:var(--green-dim);
+  }
+  .sec-note{color:var(--dim);font-size:13px;font-family:var(--mono)}
+
+  /* ---------- studio filter ---------- */
+  .filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:34px}
+  .chip{
+    cursor:pointer;border:1px solid var(--line);background:transparent;color:var(--dim);
+    font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.04em;
+    padding:9px 15px;border-radius:999px;transition:all .15s ease;
+  }
+  .chip small{opacity:.65;margin-left:5px}
+  .chip:hover{border-color:var(--green);color:var(--text)}
+  .chip.on{background:var(--green);border-color:var(--green);color:#04120B;font-weight:700}
+  .chip:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+
+  /* ---------- game grid ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(212px,1fr));gap:18px}
+  .card{
+    background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    display:flex;flex-direction:column;
+    transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .card:hover{
+    border-color:rgba(0,231,1,.5);transform:translateY(-4px);
+    box-shadow:0 14px 44px rgba(0,0,0,.55),0 0 30px rgba(0,231,1,.08);
+  }
+  .card .art{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--panel-2)}
+  .card .art img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+  .card:hover .art img{transform:scale(1.06)}
+  .card .studio{
+    position:absolute;left:9px;top:9px;
+    font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    background:rgba(4,8,6,.75);backdrop-filter:blur(6px);color:#cfe3d2;
+    border:1px solid rgba(255,255,255,.14);padding:4px 8px;border-radius:6px;
+  }
+  .card .maxbadge{
+    position:absolute;right:9px;top:9px;
+    font-family:var(--mono);font-size:10.5px;font-weight:800;letter-spacing:.02em;
+    background:rgba(20,14,2,.8);backdrop-filter:blur(6px);color:var(--gold);
+    border:1px solid rgba(255,194,51,.4);padding:4px 8px;border-radius:6px;
+  }
+  .card .cbody{padding:13px 14px 14px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .card .cname{font-family:var(--display);font-weight:600;font-size:13.5px;line-height:1.3;min-height:2.6em;display:flex;align-items:center}
+  .crow{display:flex;align-items:center;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:11px}
+  .crow .rtp{color:var(--green);font-weight:700}
+  .crow .vol{font-weight:600}
+  .vol-l{color:#4FC3F7}.vol-m{color:#B18CFF}.vol-h{color:#FF6B57}
+  .clinks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto}
+  .clink{
+    text-align:center;font-family:var(--body);font-weight:800;font-size:11.5px;
+    border-radius:8px;padding:8px 4px;transition:all .15s ease;
+  }
+  .clink.com{background:var(--green-dim);color:var(--green);border:1px solid rgba(0,231,1,.3)}
+  .clink.com:hover{background:var(--green);color:#04120B}
+  .clink.us{background:transparent;color:var(--dim);border:1px solid var(--line)}
+  .clink.us:hover{border-color:var(--text);color:var(--text)}
+  .clink.off{opacity:.35;pointer-events:none}
+
+  /* ---------- services ---------- */
+  #build{border-top:1px solid var(--line)}
+  .svc{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .s-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px 24px;
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .s-card:hover{border-color:rgba(0,231,1,.4);transform:translateY(-3px)}
+  .s-ico{
+    font-family:var(--mono);font-weight:800;font-size:13px;color:var(--green);
+    width:42px;height:42px;border-radius:10px;display:grid;place-items:center;
+    background:var(--green-dim);border:1px solid rgba(0,231,1,.3);margin-bottom:18px;
+  }
+  .s-card h3{font-family:var(--display);font-weight:600;font-size:16px;margin-bottom:10px}
+  .s-card p{color:var(--dim);font-size:13.5px;line-height:1.65;font-weight:500}
+
+  /* ---------- order ---------- */
+  #order{position:relative;text-align:center;border-top:1px solid var(--line)}
+  #order .glow{
+    position:absolute;left:50%;bottom:-120px;width:760px;height:420px;transform:translateX(-50%);
+    background:radial-gradient(closest-side,rgba(0,231,1,.13),transparent 70%);pointer-events:none;
+  }
+  #order h2{font-size:clamp(28px,4.4vw,48px)}
+  #order .sub{margin-top:18px}
+  .discord{
+    margin:36px auto 0;display:inline-flex;align-items:center;gap:0;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;
+  }
+  .discord .tag{
+    font-family:var(--mono);font-weight:800;font-size:clamp(16px,2.6vw,22px);
+    padding:18px 26px;color:var(--text);
+  }
+  .discord .tag i{color:var(--green);font-style:normal}
+  .discord button{
+    border:0;cursor:pointer;height:100%;align-self:stretch;
+    background:var(--green);color:#04120B;font-family:var(--body);font-weight:800;font-size:14px;
+    padding:0 24px;transition:filter .15s ease;
+  }
+  .discord button:hover{filter:brightness(1.12)}
+  .discord button:focus-visible{outline:2px solid #fff;outline-offset:-4px}
+  .order-note{margin-top:18px;color:var(--dim);font-size:13px;font-family:var(--mono)}
+
+  footer{border-top:1px solid var(--line);padding:34px 0 44px;color:var(--dim);font-size:12.5px}
+  .foot{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;line-height:1.7}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:860px){
+    .svc{grid-template-columns:repeat(2,1fr)}
+    .ticker{grid-template-columns:repeat(2,1fr)}
+    .tick:nth-child(2){border-right:0}
+    .tick:nth-child(1),.tick:nth-child(2){border-bottom:1px solid var(--line)}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:13px}
+  }
+  @media(max-width:480px){
+    .svc{grid-template-columns:1fr}
+    .grid{grid-template-columns:repeat(2,1fr)}
+    .discord{flex-direction:column;width:100%}
+    .discord button{padding:14px 24px;width:100%}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <a class="logo" href="#top" aria-label="ESLOT — Slot Game Developer">
+      <span class="e">E</span>
+      <span>ESLOT<small>slot game developer</small></span>
+    </a>
+    <a class="btn btn-green" href="#order">Order a game</a>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="hero-glow"></div>
+  <div class="wrap">
+    <span class="eyebrow"><span class="dot"></span> 57 games live on Stake right now</span>
+    <h1>Slots that ship.<br><span class="stroke">Math that holds.</span></h1>
+    <p class="sub">
+      I'm <b>E</b> — the developer behind <b>57 slots</b> running live on
+      <b>Stake.com</b>, <b>Stake.us</b>, Stake.mx and Stake&nbsp;EU for
+      <b>8 publishing studios</b>. One pair of hands for the whole game:
+      math model, engine, frontend, art and sound — cleared by Stake compliance,
+      playing with real money on the line.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-green" href="#order">Order a game — Discord @egorfdrv</a>
+      <a class="btn btn-ghost" href="#games">See all 57 games</a>
+    </div>
+  </div>
+  <div class="wrap ticker" aria-label="Track record">
+    <div class="tick"><div class="n"><em data-count="57">0</em></div><div class="l">Games live</div></div>
+    <div class="tick"><div class="n gold"><span class="gold"><span data-count="25000">0</span>×</span></div><div class="l">Biggest max win shipped</div></div>
+    <div class="tick"><div class="n"><em data-count="8">0</em></div><div class="l">Publishing studios</div></div>
+    <div class="tick"><div class="n"><em data-count="4">0</em></div><div class="l">Stake casinos worldwide</div></div>
+  </div>
+</header>
+
+<section id="games">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Live games <span class="live-badge"><span class="dot"></span>ON STAKE</span></h2>
+      <span class="sec-note">RTP &amp; max win verified from Stake Engine math packages · Aug 2026</span>
+    </div>
+    <div class="filters" id="filters" role="tablist" aria-label="Filter by studio"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section id="build">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>One developer. The whole game.</h2>
+      <span class="sec-note">concept → live in weeks, not quarters</span>
+    </div>
+    <div class="svc">
+      <div class="s-card reveal">
+        <div class="s-ico">∑</div>
+        <h3>Math &amp; simulation</h3>
+        <p>Custom math models simulated over 1M+ outcomes. RTP, volatility, hit rate and max-win exposure tuned to pass Stake compliance on the first review.</p>
+      </div>
+      <div class="s-card reveal">
+        <div class="s-ico">&lt;/&gt;</div>
+        <h3>Engine &amp; frontend</h3>
+        <p>Deterministic game engine plus a PixiJS + Svelte frontend: 60&nbsp;fps on mobile, replay-safe, resilient to disconnects mid-spin.</p>
+      </div>
+      <div class="s-card reveal">
+        <div class="s-ico">◆</div>
+        <h3>Art generation</h3>
+        <p>Full visual identity in days — symbols, backgrounds, splash art, game tiles. AI-assisted pipeline with hand-finished quality, consistent across every asset.</p>
+      </div>
+      <div class="s-card reveal">
+        <div class="s-ico">✦</div>
+        <h3>Mascots &amp; animation</h3>
+        <p>Characters designed for the game, rigged and animated in Spine: idle, win, anticipation, destroy. A mascot players remember, not a static sticker.</p>
+      </div>
+      <div class="s-card reveal">
+        <div class="s-ico">♪</div>
+        <h3>Sound design</h3>
+        <p>Layered win tiers, anticipation stingers, gapless music loops. Audio that players don't mute — mixed and loudness-normalized for the platform.</p>
+      </div>
+      <div class="s-card reveal">
+        <div class="s-ico">US</div>
+        <h3>US-market ready</h3>
+        <p>Builds cleared for the American social casino market: sweepstakes-safe terminology, Stake.us alongside Stake.com, localization when you need it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="order">
+  <div class="glow"></div>
+  <div class="wrap">
+    <h2 class="reveal">Want a slot with your name on it?</h2>
+    <p class="sub reveal">
+      Bring a theme or just a vibe — you get a compliant math package, a polished game
+      and a publisher-ready build for Stake Engine. Message me on Discord and we'll scope it in one call.
+    </p>
+    <div class="discord reveal">
+      <span class="tag"><i>discord/</i>egorfdrv</span>
+      <button type="button" id="copy-btn" data-tag="egorfdrv">Copy</button>
+    </div>
+    <p class="order-note">usually replies within a few hours</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span>© 2026 ESLOT — Slot Game Developer. Built on Stake Engine.</span>
+    <span>18+ · Play responsibly. RTP and max win are theoretical values from certified math packages.</span>
+  </div>
+</footer>
+
+<script>
+  const GAMES = [{"team":"abee-gaming","name":"Domino","slug":"domino","casinos":["stake","stake_us"],"modes":[{"n":"base","c":1,"rtp":96.01,"max":10000,"std":10.86,"hit":91.55},{"n":"extra_chance","c":3,"rtp":97.01,"max":10000,"std":6.3,"hit":94.13},{"n":"hunt","c":10,"rtp":95.1,"max":10000,"std":2.23,"hit":100},{"n":"bonus_buy","c":100,"rtp":97.19,"max":10000,"std":1.29,"hit":100},{"n":"super_bonus","c":350,"rtp":97.3,"max":10000,"std":1.16,"hit":100}]},{"team":"fomo-gaming","name":"Ghost of the Goon","slug":"ghost-of-the-goon","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"ante","c":1.25,"rtp":95,"max":25000,"std":19.14,"hit":24},{"n":"base","c":1,"rtp":95,"max":25000,"std":13.03,"hit":23.89},{"n":"free_spins","c":100,"rtp":95,"max":25000,"std":1.46,"hit":99.97},{"n":"super_free_spins","c":250,"rtp":95,"max":25000,"std":0.83,"hit":99.98}]},{"team":"darkbyte","name":"Paw Punch","slug":"paw-punch","casinos":["stake","stake_us","stake_mx","stake_eu"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":25000,"std":24,"hit":33.37},{"n":"ante","c":1.25,"rtp":96.5,"max":25000,"std":20.63,"hit":35.45},{"n":"power_ante","c":1.5,"rtp":96.5,"max":25000,"std":19.11,"hit":33.91},{"n":"super_ante","c":2,"rtp":96.5,"max":25000,"std":15.72,"hit":37.56},{"n":"bonus_blaze","c":150,"rtp":96.5,"max":25000,"std":5.78,"hit":64.6},{"n":"bonus_frost","c":150,"rtp":96.5,"max":25000,"std":5.58,"hit":99.79},{"n":"bonus_tag","c":400,"rtp":96.5,"max":25000,"std":2.57,"hit":98.28},{"n":"bonus_title","c":800,"rtp":96.5,"max":25000,"std":1.64,"hit":99.08}]},{"team":"darkbyte","name":"Scrolls of the Realm","slug":"scrolls-of-the-realm","casinos":["stake","stake_us","stake_mx","stake_eu"],"modes":[{"n":"base","c":1,"rtp":96,"max":10000,"std":16.17,"hit":40},{"n":"ante","c":1.5,"rtp":96,"max":10000,"std":14.09,"hit":44},{"n":"super_ante","c":2,"rtp":96,"max":10000,"std":12.1,"hit":48},{"n":"bonus","c":80,"rtp":96,"max":10000,"std":4.35,"hit":78.48},{"n":"wheel","c":100,"rtp":96,"max":10000,"std":1.59,"hit":99.8},{"n":"tower","c":150,"rtp":96,"max":10000,"std":4.07,"hit":100}]},{"team":"darkbyte","name":"Eddie Stacks","slug":"eddie-stacks","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96,"max":10000,"std":7.99,"hit":60},{"n":"ante","c":1.25,"rtp":96,"max":10000,"std":7.07,"hit":60},{"n":"bonus","c":100,"rtp":96,"max":10000,"std":6.12,"hit":90.97},{"n":"super_bonus","c":500,"rtp":96,"max":10000,"std":2.01,"hit":93.21}]},{"team":"darkbyte","name":"Fish Eat Fish","slug":"fish-eat-fish","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96,"max":10000,"std":32.35,"hit":46.4},{"n":"ante","c":1.3,"rtp":96,"max":10000,"std":25.45,"hit":24.93},{"n":"bonus_calm","c":50,"rtp":96,"max":10000,"std":4.2,"hit":100},{"n":"bonus_storm","c":100,"rtp":96,"max":10000,"std":2.3,"hit":100}]},{"team":"darkbyte","name":"Mutati","slug":"mutati","casinos":["stake","stake_us","stake_mx","stake_eu"],"modes":[{"n":"base","c":1,"rtp":96.6,"max":25000,"std":10.19,"hit":40},{"n":"ante","c":1.25,"rtp":96.6,"max":25000,"std":13.21,"hit":40},{"n":"super_ante","c":1.5,"rtp":96.6,"max":25000,"std":14.01,"hit":40},{"n":"bonus_calm","c":100,"rtp":96.6,"max":25000,"std":2.05,"hit":91.61},{"n":"bonus_storm","c":250,"rtp":96.6,"max":25000,"std":1.23,"hit":86.78},{"n":"bonus_ultra","c":1000,"rtp":96.6,"max":25000,"std":1.55,"hit":97.69}]},{"team":"darkbyte","name":"SPIN CYCLE","slug":"spin-cycle","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96,"max":10000,"std":7.83,"hit":21.02},{"n":"ante","c":1.25,"rtp":96,"max":10000,"std":10.23,"hit":21.08},{"n":"super_ante","c":3,"rtp":96,"max":10000,"std":9.42,"hit":21.6},{"n":"free_spins","c":50,"rtp":96,"max":10000,"std":1.95,"hit":97.25},{"n":"super_free_spins","c":200,"rtp":96,"max":10000,"std":0.93,"hit":100},{"n":"chaos_free_spins","c":500,"rtp":96,"max":10000,"std":0.46,"hit":100}]},{"team":"darkbyte","name":"Lucky Hunter","slug":"lucky-hunter","casinos":["stake","stake_eu","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":25000,"std":19.96,"hit":26.05},{"n":"ante","c":2,"rtp":96.5,"max":25000,"std":14.44,"hit":29.58},{"n":"super_ante","c":5,"rtp":96.5,"max":25000,"std":9.67,"hit":32.16},{"n":"bonus","c":55,"rtp":96.5,"max":25000,"std":2.56,"hit":75.92},{"n":"bonus_extreme","c":100,"rtp":96.5,"max":25000,"std":1.92,"hit":79.25}]},{"team":"darkbyte","name":"Crown Siege","slug":"crown-siege","casinos":["stake","stake_us","stake_mx","stake_eu"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":20000,"std":10.99,"hit":35.62},{"n":"ante","c":1.75,"rtp":96.5,"max":20000,"std":9.22,"hit":45.7},{"n":"super_ante","c":3,"rtp":96.5,"max":20000,"std":8.2,"hit":50.83},{"n":"catapult","c":3,"rtp":96.5,"max":20000,"std":7.43,"hit":88.02},{"n":"hunt","c":25,"rtp":96.5,"max":20000,"std":2.4,"hit":90.6},{"n":"bonus","c":100,"rtp":96.5,"max":20000,"std":1.15,"hit":98.94},{"n":"bonus_royal","c":500,"rtp":96.5,"max":20000,"std":1.11,"hit":99.99},{"n":"bonus_mystery","c":250,"rtp":96.5,"max":20000,"std":1.94,"hit":99.66}]},{"team":"darkbyte","name":"Goal Rush Golazo","slug":"goal-rush-golazo","casinos":["stake_eu","stake_mx","stake_us","stake"],"modes":[{"n":"base","c":1,"rtp":96,"max":10000,"std":14.85,"hit":40},{"n":"ante","c":1.5,"rtp":96,"max":10000,"std":12.81,"hit":44},{"n":"super_ante","c":2,"rtp":96,"max":10000,"std":11.14,"hit":48},{"n":"bonus","c":80,"rtp":96,"max":10000,"std":3.23,"hit":98.27},{"n":"penalty","c":100,"rtp":96,"max":10000,"std":3.54,"hit":95.39},{"n":"strikers_run","c":150,"rtp":96,"max":10000,"std":3.77,"hit":76.72}]},{"team":"darkbyte","name":"Mutagen Outlaws","slug":"mutagen-outlaws","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96,"max":10000,"std":10.88,"hit":30},{"n":"ante","c":1.25,"rtp":96,"max":10000,"std":9.12,"hit":35},{"n":"bonus_pick","c":100,"rtp":96,"max":10000,"std":3.83,"hit":99.3},{"n":"bonus_calm","c":100,"rtp":96,"max":10000,"std":3.69,"hit":99.97},{"n":"bonus_storm","c":500,"rtp":96,"max":10000,"std":1.72,"hit":98.57}]},{"team":"darkbyte","name":"Black and Steal","slug":"black-steal","casinos":["stake_mx","stake_us","stake"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":10000,"std":16.99,"hit":38},{"n":"bonus_hunt","c":3,"rtp":96.5,"max":10000,"std":10.68,"hit":46},{"n":"holy","c":20,"rtp":96.5,"max":10000,"std":8.42,"hit":82},{"n":"holiest","c":50,"rtp":96.5,"max":10000,"std":6.84,"hit":94},{"n":"bonus","c":100,"rtp":96.5,"max":10000,"std":3.24,"hit":94},{"n":"bonus_extreme","c":200,"rtp":96.5,"max":10000,"std":2.42,"hit":100}]},{"team":"darkbyte","name":"Shroom Bloom","slug":"shroom-bloom","casinos":["stake_mx","stake_us","stake"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":25000,"std":17.05,"hit":38},{"n":"bonus_hunt","c":3,"rtp":96.5,"max":25000,"std":9.61,"hit":46},{"n":"charged","c":25,"rtp":96.5,"max":25000,"std":10.7,"hit":82},{"n":"bonus","c":100,"rtp":96.5,"max":25000,"std":8,"hit":94},{"n":"bonus_extreme","c":250,"rtp":96.5,"max":25000,"std":3.7,"hit":96}]},{"team":"darkbyte","name":"HOLLOW MANOR","slug":"hollow-manor","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96,"max":15000,"std":12.91,"hit":33.53},{"n":"ante","c":1.5,"rtp":96,"max":15000,"std":14.29,"hit":43.98},{"n":"bonus","c":100,"rtp":96,"max":15000,"std":2.72,"hit":99.84},{"n":"super_bonus","c":500,"rtp":96,"max":15000,"std":1.97,"hit":99.98}]},{"team":"darkbyte","name":"Vegas Jewels","slug":"vegas_jewels","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96,"max":10000,"std":17.26,"hit":11.79},{"n":"ante","c":1.25,"rtp":96,"max":10000,"std":17.27,"hit":12.58},{"n":"bonus","c":50,"rtp":96,"max":10000,"std":1.97,"hit":72.14},{"n":"super_bonus","c":100,"rtp":96,"max":10000,"std":1.49,"hit":85.11},{"n":"mega_bonus","c":150,"rtp":96,"max":10000,"std":1.24,"hit":90.22}]},{"team":"darkbyte","name":"Maya Rush","slug":"maya-rush","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96,"max":10000,"std":35.89,"hit":26.79},{"n":"ante","c":1.25,"rtp":96,"max":10000,"std":34.44,"hit":26.25},{"n":"super_ante","c":3,"rtp":96,"max":10000,"std":26.05,"hit":25.87},{"n":"pyramid_awakening","c":100,"rtp":96,"max":10000,"std":5.71,"hit":77.76},{"n":"sun_temple","c":250,"rtp":96,"max":10000,"std":3.69,"hit":84}]},{"team":"darkbyte","name":"Devil Football","slug":"devil-football","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96.3,"max":10000,"std":8.08,"hit":18.93},{"n":"ante","c":1.25,"rtp":96.3,"max":10000,"std":9.32,"hit":16.83},{"n":"super_ante","c":3,"rtp":96.3,"max":10000,"std":5.87,"hit":20.88},{"n":"kennel_frenzy","c":100,"rtp":96.3,"max":10000,"std":0.62,"hit":100},{"n":"howling_alpha","c":250,"rtp":96.3,"max":10000,"std":0.57,"hit":99.94},{"n":"hellgate_riot","c":500,"rtp":96.3,"max":10000,"std":0.73,"hit":100}]},{"team":"darkbyte","name":"DJ Beat Drop","slug":"dj-beat-drop","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96,"max":1000,"std":3.89,"hit":20},{"n":"drum","c":1,"rtp":96,"max":1000,"std":3.41,"hit":20},{"n":"bass","c":1,"rtp":96,"max":1000,"std":3.42,"hit":20},{"n":"synth","c":1,"rtp":96,"max":1000,"std":3.41,"hit":20},{"n":"fx","c":1,"rtp":96,"max":1000,"std":3.42,"hit":20},{"n":"vocal","c":1,"rtp":96,"max":1000,"std":3.4,"hit":20},{"n":"sample","c":1,"rtp":96,"max":1000,"std":3.41,"hit":20},{"n":"scratch","c":1,"rtp":96,"max":1000,"std":3.42,"hit":20},{"n":"drop","c":1,"rtp":96,"max":1000,"std":3.41,"hit":20}]},{"team":"darkbyte","name":"This is Fine","slug":"this-is-fine","casinos":["stake_mx","stake_us","stake"],"modes":[{"n":"base","c":1,"rtp":96,"max":10000,"std":10.11,"hit":54.99},{"n":"ante","c":1.5,"rtp":96,"max":10000,"std":13.3,"hit":60.08},{"n":"bonus_drizzle","c":100,"rtp":96,"max":10000,"std":1.24,"hit":99.91},{"n":"bonus_inferno","c":300,"rtp":96,"max":10000,"std":0.85,"hit":100}]},{"team":"darkbyte","name":"Witches Cauldron","slug":"witches-cauldron","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":10000,"std":12.83,"hit":30},{"n":"ante","c":1.25,"rtp":96.5,"max":10000,"std":10.22,"hit":35},{"n":"super_ante","c":3,"rtp":96.5,"max":10000,"std":8.73,"hit":35},{"n":"bonus","c":100,"rtp":96.5,"max":10000,"std":3.79,"hit":96.1},{"n":"super_bonus","c":300,"rtp":96.5,"max":10000,"std":1.92,"hit":99.28}]},{"team":"darkbyte","name":"Pack Mayhem","slug":"pack-mayhem","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96.37,"max":10000,"std":34.06,"hit":36.06},{"n":"ante","c":1.25,"rtp":96.35,"max":10000,"std":33.05,"hit":36.7},{"n":"kennel_frenzy","c":100,"rtp":96.3,"max":10000,"std":4.24,"hit":99.79},{"n":"howling_alpha","c":250,"rtp":96.3,"max":10000,"std":2.55,"hit":99.82}]},{"team":"darkbyte","name":"Reverse Cascade","slug":"reverse-cascade","casinos":["stake_us","stake_mx","stake"],"modes":[{"n":"base","c":1,"rtp":95,"max":10000,"std":17.64,"hit":13.18},{"n":"ante","c":1.25,"rtp":95,"max":10000,"std":13.6,"hit":17.09},{"n":"free_spins","c":50,"rtp":95,"max":10000,"std":4.36,"hit":83.94},{"n":"super_free_spins","c":200,"rtp":95,"max":10000,"std":3.09,"hit":99.69}]},{"team":"darkbyte","name":"Doodle Rush","slug":"doodle-rush","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"ante","c":1.25,"rtp":95,"max":10000,"std":13.98,"hit":24},{"n":"base","c":1,"rtp":95,"max":10000,"std":7.62,"hit":23.99},{"n":"free_spins","c":100,"rtp":95,"max":10000,"std":1.35,"hit":99.97},{"n":"super_free_spins","c":250,"rtp":95,"max":10000,"std":3.17,"hit":99.98}]},{"team":"darkbyte","name":"Cursed Grimoire","slug":"cursed-grimoire","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96,"max":10000,"std":10.2,"hit":30},{"n":"ante","c":1.25,"rtp":96,"max":10000,"std":8.91,"hit":35},{"n":"bonus_pick","c":100,"rtp":96,"max":10000,"std":3.62,"hit":99.31},{"n":"bonus_calm","c":100,"rtp":96,"max":10000,"std":3.39,"hit":99.98},{"n":"bonus_storm","c":500,"rtp":96,"max":10000,"std":1.62,"hit":98.56}]},{"team":"darkbyte","name":"Coin Roguelike","slug":"coin-roguelike","casinos":["stake","stake_mx","stake_us"],"modes":[{"n":"base","c":1,"rtp":96,"max":10000,"std":4.45,"hit":25.78},{"n":"ante","c":1.25,"rtp":96,"max":10000,"std":5.08,"hit":24.85},{"n":"dungeon_run","c":150,"rtp":96,"max":10000,"std":0.54,"hit":100}]},{"team":"darkbyte","name":"Goal Rush Mayhem","slug":"goal-rush-mayhem","casinos":["stake","stake_mx","stake_us"],"modes":[{"n":"base","c":1,"rtp":96,"max":10000,"std":19.63,"hit":43.95},{"n":"ante","c":1.25,"rtp":96,"max":10000,"std":17.15,"hit":47.36},{"n":"free_kicks","c":100,"rtp":96,"max":10000,"std":3.61,"hit":99.48},{"n":"extra_time","c":200,"rtp":96,"max":10000,"std":2.21,"hit":99.92},{"n":"champions_final","c":1000,"rtp":96,"max":10000,"std":1.14,"hit":67.67}]},{"team":"darkbyte","name":"Gangsta Doge","slug":"gangsta-doge","casinos":["stake_us","stake_mx","stake"],"modes":[{"n":"base","c":1,"rtp":96,"max":10000,"std":9.2,"hit":90.81},{"n":"ante","c":1.25,"rtp":96,"max":10000,"std":10.03,"hit":90.3},{"n":"bonus1","c":100,"rtp":96,"max":10000,"std":0.82,"hit":100},{"n":"bonus2","c":200,"rtp":96,"max":10000,"std":1.04,"hit":100},{"n":"bonus3","c":50,"rtp":96,"max":10000,"std":6.05,"hit":90.13}]},{"team":"darkbyte","name":"Frutti Rush","slug":"frutti-rush","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"ante","c":1.25,"rtp":95,"max":10000,"std":14.74,"hit":24},{"n":"base","c":1,"rtp":95,"max":10000,"std":7.64,"hit":23.98},{"n":"free_spins","c":100,"rtp":95,"max":10000,"std":1.35,"hit":99.97},{"n":"super_free_spins","c":250,"rtp":95,"max":10000,"std":3.15,"hit":99.98}]},{"team":"darkbyte","name":"Triple Threat Arena","slug":"triple-threat-arena","casinos":["stake_us","stake"],"modes":[{"n":"base","c":1,"rtp":96,"max":10000,"std":12.69,"hit":96.94},{"n":"ante","c":1.25,"rtp":96,"max":10000,"std":16.13,"hit":97.51},{"n":"ritual_bonus","c":89,"rtp":96,"max":10000,"std":2.91,"hit":99.97}]},{"team":"darkbyte","name":"But why?","slug":"but-why","casinos":["stake","stake_mx","stake_us"],"modes":[{"n":"ante","c":1.25,"rtp":95,"max":25000,"std":19.14,"hit":24},{"n":"base","c":1,"rtp":95,"max":25000,"std":13.03,"hit":23.89},{"n":"free_spins","c":100,"rtp":95,"max":25000,"std":1.46,"hit":99.97},{"n":"super_free_spins","c":250,"rtp":95,"max":25000,"std":0.83,"hit":99.98}]},{"team":"darkbyte","name":"Daruma","slug":"daruma","casinos":["stake_us","stake_mx","stake"],"modes":[{"n":"ante","c":1.25,"rtp":95,"max":25000,"std":19.14,"hit":24},{"n":"base","c":1,"rtp":95,"max":25000,"std":13.03,"hit":23.89},{"n":"free_spins","c":100,"rtp":95,"max":25000,"std":1.46,"hit":99.97},{"n":"super_free_spins","c":250,"rtp":95,"max":25000,"std":0.83,"hit":99.98}]},{"team":"darkbyte","name":"Kawaii Sushi 1000","slug":"kawaii-sushi-1000","casinos":["stake","stake_mx","stake_us"],"modes":[{"n":"ante","c":1.25,"rtp":95,"max":25000,"std":19.14,"hit":24},{"n":"base","c":1,"rtp":95,"max":25000,"std":13.03,"hit":23.89},{"n":"free_spins","c":100,"rtp":95,"max":25000,"std":1.46,"hit":99.97},{"n":"super_free_spins","c":250,"rtp":95,"max":25000,"std":0.83,"hit":99.98}]},{"team":"darkbyte","name":"Goal Rush","slug":"goal-rush","casinos":["stake","stake_us"],"modes":[{"n":"ante","c":1.25,"rtp":96.5,"max":10000,"std":30.65,"hit":30.56},{"n":"base","c":1,"rtp":96.5,"max":10000,"std":31.22,"hit":30.57},{"n":"penalty_3","c":50,"rtp":96.5,"max":10000,"std":5.93,"hit":30.86},{"n":"penalty_6","c":150,"rtp":96.5,"max":10000,"std":2.99,"hit":30.34}]},{"team":"darkbyte","name":"Kawaii SUSHI","slug":"kawaii-sushi","casinos":["stake_us","stake"],"modes":[{"n":"base","c":1,"rtp":96.45,"max":6007.6,"std":10.4,"hit":17.98},{"n":"fresh_catch","c":100,"rtp":96.42,"max":12499.62,"std":1.19,"hit":100},{"n":"wasabi_kick","c":100,"rtp":96.38,"max":12499.3,"std":1.16,"hit":100},{"n":"dragon_roll","c":100,"rtp":96.38,"max":12499.92,"std":1.25,"hit":100},{"n":"eating_shrimp","c":1,"rtp":96.5,"max":2,"std":1,"hit":48.25},{"n":"eating_salmon","c":1,"rtp":96.5,"max":5,"std":1.97,"hit":19.3},{"n":"eating_wasabi","c":1,"rtp":96.5,"max":10,"std":2.95,"hit":9.65}]},{"team":"maxx","name":"MAXX: Origin","slug":"maxx-origin","casinos":["stake","stake_us","stake_mx","stake_eu"],"modes":[{"n":"base","c":1,"rtp":96.51,"max":25000,"std":16.08,"hit":46},{"n":"ante","c":1.25,"rtp":96.5,"max":25000,"std":15.6,"hit":46},{"n":"super_ante","c":1.5,"rtp":96.51,"max":25000,"std":15.32,"hit":46.79},{"n":"maxwin_ante","c":2,"rtp":96.5,"max":25000,"std":14.84,"hit":47.89},{"n":"bonus","c":50,"rtp":96.5,"max":25000,"std":5.09,"hit":98.98},{"n":"bonus_storm","c":100,"rtp":96.5,"max":25000,"std":3.91,"hit":99.79},{"n":"bonus_riot","c":150,"rtp":96.5,"max":25000,"std":3.61,"hit":99.88},{"n":"bonus_meltdown","c":200,"rtp":96.5,"max":25000,"std":3.42,"hit":99.95}]},{"team":"maxx","name":"MAXX: First Blood","slug":"maxx-first-blood","casinos":["stake","stake_us","stake_mx","stake_eu"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":25000,"std":15.88,"hit":46},{"n":"ante","c":1.25,"rtp":96.5,"max":25000,"std":15.51,"hit":46},{"n":"super_ante","c":1.5,"rtp":96.5,"max":25000,"std":15.1,"hit":46.44},{"n":"maxwin_ante","c":2,"rtp":96.5,"max":25000,"std":14.75,"hit":47.28},{"n":"bonus","c":50,"rtp":96.5,"max":25000,"std":4.95,"hit":99.9},{"n":"bonus_storm","c":100,"rtp":96.5,"max":25000,"std":4.1,"hit":97.16},{"n":"bonus_riot","c":150,"rtp":96.5,"max":25000,"std":3.11,"hit":99.98},{"n":"bonus_meltdown","c":200,"rtp":96.5,"max":25000,"std":3.26,"hit":99.99}]},{"team":"10000x","name":"CANDY SUGAR CRASH","slug":"candy-sugar-crash","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":95.5,"max":10000,"std":24.75,"hit":45.13},{"n":"ante","c":1.25,"rtp":95.5,"max":10000,"std":23.46,"hit":44.76},{"n":"super_ante","c":1.5,"rtp":95.5,"max":10000,"std":22.96,"hit":44.2},{"n":"maxwin_ante","c":200,"rtp":95.5,"max":10000,"std":3.79,"hit":68.37},{"n":"bonus","c":100,"rtp":95.5,"max":10000,"std":5.61,"hit":99.54},{"n":"bonus_storm","c":140,"rtp":95.5,"max":10000,"std":4.18,"hit":99.86},{"n":"bonus_riot","c":170,"rtp":95.5,"max":10000,"std":3.64,"hit":99.88},{"n":"bonus_meltdown","c":200,"rtp":95.5,"max":10000,"std":3.1,"hit":99.96}]},{"team":"10000x","name":"Soul Siphon","slug":"soul-siphon","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":10000,"std":14.25,"hit":53.25},{"n":"bonus","c":100,"rtp":96.5,"max":10000,"std":3.38,"hit":99.38},{"n":"bonus_random","c":128,"rtp":96.5,"max":10000,"std":3.22,"hit":99.52},{"n":"bonus_mid","c":150,"rtp":96.5,"max":10000,"std":3.07,"hit":99.98},{"n":"bonus_super","c":200,"rtp":96.5,"max":10000,"std":2.63,"hit":100},{"n":"ante","c":1.5,"rtp":96.5,"max":10000,"std":13.89,"hit":57.06},{"n":"super_ante","c":3,"rtp":96.5,"max":10000,"std":12.74,"hit":71.47},{"n":"maxwin_ante","c":200,"rtp":96.5,"max":10000,"std":3.03,"hit":56.62}]},{"team":"10000x","name":"Hoard Breaker","slug":"hoard-breaker","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":10000,"std":25.02,"hit":44.15},{"n":"ante","c":1.25,"rtp":96.5,"max":10000,"std":23.63,"hit":44.89},{"n":"super_ante","c":2,"rtp":96.5,"max":10000,"std":22.18,"hit":45.45},{"n":"maxwin_ante","c":200,"rtp":96.5,"max":10000,"std":3.82,"hit":73.76},{"n":"bonus","c":50,"rtp":96.5,"max":10000,"std":7.5,"hit":99.7},{"n":"bonus_storm","c":100,"rtp":96.5,"max":10000,"std":4.82,"hit":99.92},{"n":"bonus_riot","c":150,"rtp":96.5,"max":10000,"std":3.63,"hit":99.95},{"n":"bonus_meltdown","c":200,"rtp":96.5,"max":10000,"std":2.78,"hit":99.99}]},{"team":"10000x","name":"Fenrir","slug":"fenrir","casinos":["stake","stake_us","stake_mx","stake_eu"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":10000,"std":14.61,"hit":25.75},{"n":"ante","c":1.25,"rtp":96.5,"max":10000,"std":14.13,"hit":19.58},{"n":"super_ante","c":2.5,"rtp":96.5,"max":10000,"std":13.74,"hit":16.57},{"n":"unchaining","c":50,"rtp":96.5,"max":10000,"std":7.35,"hit":50.09},{"n":"ragnarok","c":100,"rtp":96.5,"max":10000,"std":3.43,"hit":89.05},{"n":"fimbulwinter","c":150,"rtp":96.5,"max":10000,"std":2.15,"hit":100},{"n":"twilight","c":200,"rtp":96.5,"max":10000,"std":1.72,"hit":100}]},{"team":"10000x","name":"Haaland Walk","slug":"haaland-walk","casinos":["stake","stake_us","stake_mx","stake_eu"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":10000,"std":37.68,"hit":37.56},{"n":"ante","c":1.25,"rtp":96.5,"max":10000,"std":35.56,"hit":37.43},{"n":"super_ante","c":1.5,"rtp":96.5,"max":10000,"std":34.54,"hit":36.07},{"n":"maxwin_ante","c":2,"rtp":96.5,"max":10000,"std":32.21,"hit":35.46},{"n":"bonus","c":100,"rtp":96.5,"max":10000,"std":4.77,"hit":98.74},{"n":"bonus_storm","c":250,"rtp":96.5,"max":10000,"std":2.89,"hit":99.62},{"n":"bonus_riot","c":500,"rtp":96.5,"max":10000,"std":1.93,"hit":99.77},{"n":"bonus_meltdown","c":1000,"rtp":96.5,"max":10000,"std":1.29,"hit":99.94}]},{"team":"10000x","name":"GOAL: Added Time","slug":"goal-addedtime","casinos":["stake","stake_us","stake_mx","stake_eu"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":10000,"std":19.74,"hit":35.99},{"n":"ante","c":1.25,"rtp":96.5,"max":10000,"std":17.79,"hit":42},{"n":"super_ante","c":2,"rtp":96.5,"max":10000,"std":14.04,"hit":50},{"n":"pitch_lock","c":88,"rtp":96.5,"max":10000,"std":3.22,"hit":100},{"n":"road_to_cup","c":200,"rtp":96.5,"max":10000,"std":2.77,"hit":100}]},{"team":"10000x","name":"Rabid Rush","slug":"rabid-rush","casinos":["stake_eu","stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":10000,"std":12.78,"hit":29.55},{"n":"ante","c":1.5,"rtp":96.5,"max":10000,"std":13.34,"hit":36.23},{"n":"super_ante","c":3,"rtp":96.5,"max":10000,"std":10.97,"hit":38.32},{"n":"bonus","c":100,"rtp":96.5,"max":10000,"std":1.84,"hit":84.93},{"n":"bonus_royal","c":250,"rtp":96.5,"max":10000,"std":1.29,"hit":87.5},{"n":"bonus_super","c":500,"rtp":96.5,"max":10000,"std":1.07,"hit":92.42},{"n":"bonus_random","c":200,"rtp":96.5,"max":10000,"std":1.61,"hit":86.33},{"n":"max_win_ante","c":1000,"rtp":96.5,"max":10000,"std":0.54,"hit":95.69}]},{"team":"fullsend","name":"Juice or Die","slug":"juice-or-die","casinos":["stake","stake_us","stake_mx","stake_eu"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":25000,"std":22.28,"hit":38.01},{"n":"bonus_hunt","c":3,"rtp":96.5,"max":25000,"std":10.75,"hit":46},{"n":"charged","c":25,"rtp":96.5,"max":25000,"std":13.79,"hit":82},{"n":"bonus","c":100,"rtp":96.5,"max":25000,"std":6.72,"hit":94},{"n":"bonus_extreme","c":250,"rtp":96.5,"max":25000,"std":3.61,"hit":96},{"n":"bonus_judgment","c":400,"rtp":96.5,"max":25000,"std":2.46,"hit":97}]},{"team":"fullsend","name":"Atlantis Meltdown","slug":"atlantis-meltdown","casinos":["stake","stake_us","stake_mx","stake_eu"],"modes":[{"n":"base","c":1,"rtp":92.5,"max":10000,"std":9.18,"hit":28},{"n":"ante","c":1.25,"rtp":92.5,"max":10000,"std":11.52,"hit":30},{"n":"super_ante","c":2,"rtp":92.5,"max":10000,"std":14.56,"hit":32},{"n":"maxwin","c":3,"rtp":92.5,"max":10000,"std":15.12,"hit":34},{"n":"bonus","c":100,"rtp":92.5,"max":10000,"std":2,"hit":99.95},{"n":"meltdown","c":250,"rtp":92.5,"max":10000,"std":1.63,"hit":99.99},{"n":"inferno","c":500,"rtp":92.5,"max":10000,"std":1.4,"hit":100},{"n":"cataclysm","c":1000,"rtp":92.5,"max":10000,"std":0.98,"hit":100}]},{"team":"fullsend","name":"Farm Fury","slug":"farm-fury","casinos":["stake","stake_us","stake_mx","stake_eu"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":25000,"std":22.56,"hit":30.05},{"n":"ante","c":1.5,"rtp":96.5,"max":25000,"std":22.59,"hit":27.03},{"n":"super_ante","c":2,"rtp":96.5,"max":25000,"std":21,"hit":27.94},{"n":"maxwin_ante","c":200,"rtp":96.5,"max":25000,"std":3.28,"hit":88.8},{"n":"bonus","c":50,"rtp":96.5,"max":25000,"std":4.97,"hit":79.94},{"n":"bonus_super","c":100,"rtp":96.5,"max":25000,"std":3.84,"hit":88.84},{"n":"bonus_blood","c":150,"rtp":96.5,"max":25000,"std":3.29,"hit":92.13},{"n":"bonus_max","c":200,"rtp":96.5,"max":25000,"std":2.97,"hit":94.08}]},{"team":"fullsend","name":"HEIST - The Perfect Score","slug":"heist-the-perfect-score","casinos":["stake","stake_mx","stake_us","stake_eu"],"modes":[{"n":"base","c":1,"rtp":96,"max":10000,"std":5.74,"hit":18.19},{"n":"ante","c":1.5,"rtp":96,"max":10000,"std":5.87,"hit":19.18},{"n":"super_ante","c":2,"rtp":96,"max":10000,"std":4.83,"hit":25.62},{"n":"blueprint_1","c":80,"rtp":96,"max":10000,"std":1.62,"hit":60.49},{"n":"blueprint_2","c":200,"rtp":96,"max":10000,"std":1.26,"hit":53.78},{"n":"blueprint_3","c":150,"rtp":96,"max":10000,"std":0.98,"hit":100}]},{"team":"fullsend","name":"Goal Diggers","slug":"goal-diggers","casinos":["stake_us","stake","stake_mx"],"modes":[{"n":"base","c":1,"rtp":95,"max":25000,"std":10.61,"hit":41.73},{"n":"ante","c":1.25,"rtp":95,"max":25000,"std":10.37,"hit":41.59},{"n":"super_ante","c":1.5,"rtp":95,"max":25000,"std":10.24,"hit":41.6},{"n":"bonus_calm","c":100,"rtp":95,"max":25000,"std":1.3,"hit":91.92},{"n":"bonus_storm","c":250,"rtp":95,"max":25000,"std":1,"hit":91.74},{"n":"bonus_ultra","c":1000,"rtp":95,"max":25000,"std":1.29,"hit":90.51}]},{"team":"splatworks","name":"SLICE OF HELL","slug":"slice-of-hell","casinos":["stake","stake_us","stake_mx","stake_eu"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":10000,"std":14.71,"hit":46},{"n":"ante","c":1.5,"rtp":96.5,"max":10000,"std":14.1,"hit":46},{"n":"super_ante","c":3,"rtp":96.5,"max":10000,"std":12.75,"hit":47.28},{"n":"bonus","c":100,"rtp":96.5,"max":10000,"std":3.35,"hit":95.51},{"n":"bonus_random","c":125,"rtp":96.5,"max":10000,"std":3.23,"hit":95.79},{"n":"bonus_hot","c":150,"rtp":96.5,"max":10000,"std":3.05,"hit":98.33},{"n":"bonus_max","c":200,"rtp":96.5,"max":10000,"std":2.74,"hit":98.96},{"n":"oni","c":200,"rtp":96.5,"max":10000,"std":3.05,"hit":31.82}]},{"team":"splatworks","name":"Toxic Takeout","slug":"toxic-takeout","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":10000,"std":13.96,"hit":46},{"n":"ante","c":1.25,"rtp":96.5,"max":10000,"std":13.8,"hit":46},{"n":"ante_super","c":2,"rtp":96.5,"max":10000,"std":13.16,"hit":46},{"n":"ante_max","c":200,"rtp":96.5,"max":10000,"std":2.47,"hit":91.32},{"n":"bonus","c":100,"rtp":96.5,"max":10000,"std":3.06,"hit":93.32},{"n":"bonus_hot","c":140,"rtp":96.5,"max":10000,"std":2.66,"hit":96.87},{"n":"bonus_fry","c":170,"rtp":96.5,"max":10000,"std":2.15,"hit":98.87},{"n":"bonus_lock","c":200,"rtp":96.5,"max":10000,"std":2.22,"hit":93.82}]},{"team":"splatworks","name":"Slime Kingdom","slug":"slime-kingdom","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":15000,"std":14.65,"hit":53.23},{"n":"hunt","c":3,"rtp":96.5,"max":15000,"std":13.54,"hit":70.4},{"n":"layer","c":10,"rtp":96.5,"max":15000,"std":11.14,"hit":53.4},{"n":"bonus","c":100,"rtp":96.5,"max":15000,"std":3.77,"hit":99.35},{"n":"bonus_random","c":128,"rtp":96.5,"max":15000,"std":3.52,"hit":99.54},{"n":"bonus_mid","c":150,"rtp":96.5,"max":15000,"std":3.19,"hit":99.98},{"n":"bonus_super","c":200,"rtp":96.5,"max":15000,"std":2.65,"hit":100},{"n":"ante","c":1.5,"rtp":96.5,"max":15000,"std":14.29,"hit":57.1},{"n":"super_ante","c":3,"rtp":96.5,"max":15000,"std":13.5,"hit":71.44},{"n":"maxwin_ante","c":200,"rtp":96.5,"max":15000,"std":3.3,"hit":56.82}]},{"team":"splatworks","name":"Rest in Pieces","slug":"rest-in-pieces","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":10000,"std":14.21,"hit":46},{"n":"ante","c":1.25,"rtp":96.5,"max":10000,"std":14.11,"hit":46.3},{"n":"ante_super","c":2,"rtp":96.5,"max":10000,"std":13.4,"hit":47.9},{"n":"ante_max","c":3,"rtp":96.5,"max":10000,"std":12.72,"hit":49.53},{"n":"bonus","c":100,"rtp":96.5,"max":10000,"std":3.19,"hit":99.47},{"n":"bonus_hot","c":250,"rtp":96.5,"max":10000,"std":2.73,"hit":99.93},{"n":"bonus_hold","c":200,"rtp":96.5,"max":10000,"std":2.66,"hit":100},{"n":"bonus_max","c":500,"rtp":96.5,"max":10000,"std":1.53,"hit":100}]},{"team":"splatworks","name":"Hissy Fit","slug":"hissy-fit","casinos":["stake","stake_us","stake_mx","stake_eu"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":10000,"std":11.72,"hit":27.67},{"n":"ante","c":1.5,"rtp":96.5,"max":10000,"std":11.99,"hit":31.85},{"n":"super_ante","c":3,"rtp":96.5,"max":10000,"std":11.22,"hit":37.34},{"n":"bonus","c":100,"rtp":96.5,"max":10000,"std":3.6,"hit":91.53},{"n":"bonus_royal","c":150,"rtp":96.5,"max":10000,"std":3.15,"hit":95.19},{"n":"bonus_super","c":200,"rtp":96.5,"max":10000,"std":3.03,"hit":96.96},{"n":"bonus_random","c":125,"rtp":96.5,"max":10000,"std":3.5,"hit":91.86},{"n":"max_win_ante","c":200,"rtp":96.5,"max":10000,"std":3.09,"hit":72.25}]},{"team":"splatworks","name":"Horde Mentality","slug":"horde-mentality","casinos":["stake","stake_us","stake_mx","stake_eu"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":10000,"std":14.3,"hit":51.68},{"n":"ante","c":1.5,"rtp":96.5,"max":10000,"std":13.77,"hit":54.82},{"n":"super_ante","c":3,"rtp":96.5,"max":10000,"std":12.57,"hit":56.87},{"n":"bonus","c":100,"rtp":96.5,"max":10000,"std":2.13,"hit":99.34},{"n":"bonus_random","c":125,"rtp":96.5,"max":10000,"std":3.08,"hit":99.51},{"n":"bonus_hot","c":150,"rtp":96.5,"max":10000,"std":2.73,"hit":99.77},{"n":"bonus_max","c":200,"rtp":96.5,"max":10000,"std":2.54,"hit":99.97},{"n":"burkut","c":200,"rtp":96.5,"max":10000,"std":2.53,"hit":77.61}]},{"team":"rtpexe","name":"Plague Doctor","slug":"plague-doctor","casinos":["stake","stake_us","stake_mx"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":25000,"std":15.23,"hit":38.89},{"n":"ante","c":1.25,"rtp":96.5,"max":25000,"std":13.75,"hit":38.13},{"n":"super_ante","c":2,"rtp":96.5,"max":25000,"std":12.46,"hit":37.18},{"n":"max_win_hunt","c":500,"rtp":96.5,"max":25000,"std":1.15,"hit":100},{"n":"bonus","c":100,"rtp":96.5,"max":25000,"std":2.93,"hit":98.77},{"n":"super_bonus","c":150,"rtp":96.5,"max":25000,"std":2.02,"hit":100}]},{"team":"rtpexe","name":"CHROME SEVENS","slug":"chrome-sevens","casinos":["stake","stake_us","stake_mx","stake_eu"],"modes":[{"n":"base","c":1,"rtp":96.5,"max":20000,"std":23.92,"hit":19.73},{"n":"ante","c":1.25,"rtp":96.5,"max":20000,"std":22.38,"hit":20.89},{"n":"super_ante","c":1.5,"rtp":96.5,"max":20000,"std":21.17,"hit":21.76},{"n":"maxwin_ante","c":2,"rtp":96.5,"max":20000,"std":19.23,"hit":24.78},{"n":"bar_rush","c":20,"rtp":96.5,"max":20000,"std":11.58,"hit":28.45},{"n":"streak","c":30,"rtp":96.5,"max":757,"std":2.28,"hit":79.42},{"n":"mega","c":100,"rtp":96.5,"max":20000,"std":5.55,"hit":51.77},{"n":"super_mega","c":300,"rtp":96.5,"max":20000,"std":2.7,"hit":63.51},{"n":"overclock","c":500,"rtp":96.5,"max":20000,"std":1.97,"hit":75.47},{"n":"max_win_hunt","c":1000,"rtp":96.5,"max":20000,"std":1.32,"hit":71.81}]}];
+
+  const STUDIO = {
+    'abee-gaming':  {label:'Abee Gaming',  provider:'abeegaming'},
+    'fomo-gaming':  {label:'Fomo Gaming',  provider:'fomogaming'},
+    'darkbyte':     {label:'Darkbyte',     provider:'darkbyte'},
+    'maxx':         {label:'MAXX',         provider:'maxx'},
+    '10000x':       {label:'10000x Games', provider:'10000x'},
+    'fullsend':     {label:'Fullsend',     provider:'fullsend'},
+    'splatworks':   {label:'Splatworks',   provider:'splatworks'},
+    'rtpexe':       {label:'RTP.EXE',      provider:'rtpexe'},
+  };
+
+  const fmt = n => Math.round(n).toLocaleString('en-US');
+  const volOf = std => std < 6 ? ['LOW','vol-l'] : std < 14 ? ['MED','vol-m'] : ['HIGH','vol-h'];
+  const baseMode = g => g.modes.find(m => m.n === 'base') || g.modes[0];
+  const maxWin = g => Math.max(...g.modes.map(m => m.max));
+  const stakeSlug = g => STUDIO[g.team].provider + '-' + g.slug.replace(/_/g, '-');
+
+  const grid = document.getElementById('grid');
+  const filters = document.getElementById('filters');
+  let active = 'all';
+
+  function renderFilters(){
+    const counts = GAMES.reduce((a,g)=>(a[g.team]=(a[g.team]||0)+1,a),{});
+    const chips = [['all',`All games`,GAMES.length], ...Object.keys(STUDIO).filter(t=>counts[t]).map(t=>[t,STUDIO[t].label,counts[t]])];
+    filters.innerHTML = chips.map(([k,label,c]) =>
+      `<button class="chip${k===active?' on':''}" data-k="${k}" role="tab" aria-selected="${k===active}">${label}<small>${c}</small></button>`
+    ).join('');
+  }
+  filters.addEventListener('click', e => {
+    const b = e.target.closest('.chip'); if (!b) return;
+    active = b.dataset.k; renderFilters(); renderGrid();
+  });
+
+  function renderGrid(){
+    const list = GAMES.filter(g => active==='all' || g.team===active);
+    grid.innerHTML = list.map(g => {
+      const b = baseMode(g), [vl, vc] = volOf(b.std), slug = stakeSlug(g);
+      const com = g.casinos.includes('stake'), us = g.casinos.includes('stake_us');
+      return `<article class="card">
+        <div class="art">
+          <img src="assets/tiles/${g.slug}.png" alt="${g.name} game tile" loading="lazy">
+          <span class="studio">${STUDIO[g.team].label}</span>
+          <span class="maxbadge">${fmt(maxWin(g))}×</span>
+        </div>
+        <div class="cbody">
+          <div class="cname">${g.name}</div>
+          <div class="crow">
+            <span class="rtp">RTP ${b.rtp.toFixed(2)}%</span>
+            <span class="vol ${vc}">${vl} VOL</span>
+          </div>
+          <div class="clinks">
+            <a class="clink com${com?'':' off'}" href="https://stake.com/casino/games/${slug}" target="_blank" rel="noopener">Stake.com</a>
+            <a class="clink us${us?'':' off'}" href="https://stake.us/casino/games/${slug}" target="_blank" rel="noopener">Stake.us</a>
+          </div>
+        </div>
+      </article>`;
+    }).join('');
+  }
+
+  renderFilters();
+  renderGrid();
+
+  // count-up on scroll
+  const cnt = el => {
+    const target = +el.dataset.count, t0 = performance.now(), dur = 1400;
+    const step = t => {
+      const p = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(target * e);
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const io = new IntersectionObserver(es => es.forEach(en => {
+    if (!en.isIntersecting) return;
+    en.target.classList.add('in');
+    en.target.querySelectorAll?.('[data-count]').forEach(el => {
+      if (el.dataset.done) return; el.dataset.done = 1;
+      reduce ? el.textContent = fmt(+el.dataset.count) : cnt(el);
+    });
+    io.unobserve(en.target);
+  }), {threshold:.25});
+  document.querySelectorAll('.reveal, .ticker').forEach(el => io.observe(el));
+
+  // copy discord tag
+  const btn = document.getElementById('copy-btn');
+  btn.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(btn.dataset.tag); } catch(e){}
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 1600);
+  });
+</script>
+</body>
+</html>
